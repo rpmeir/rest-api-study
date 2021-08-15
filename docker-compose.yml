@@ -1,0 +1,46 @@
+version: '3.7'
+
+networks:
+  backend:
+    driver: ${NETWORKS_DRIVER}
+    ipam:
+      config:
+        - subnet: "192.168.204.0/24"
+
+volumes:
+  data-restapi:
+
+services:
+  node:
+    image: rest-api-js/node
+    build:
+      context: .
+      dockerfile: .docker/node/Dockerfile
+    volumes:
+      - ${NODE_PATH_HOST}:${NODE_PATH_CONTAINER}
+    ports:
+      - "${NODE_HOST_PORT}:${NODE_HOST_PORT}"
+    networks:
+      backend:
+        ipv4_address: 192.168.204.11
+        aliases:
+          - ${APP_HOST}
+
+  postgres:
+    image: rest-api-js/postgres
+    build:
+      context: .
+      dockerfile: .docker/postgres/Dockerfile
+    restart: always
+    volumes:
+      - data-restapi:/var/lib/postgresql/data
+    networks:
+      backend:
+        ipv4_address: 192.168.204.10
+    ports:
+      - ${POSTGRES_PORT}:${POSTGRES_PORT}
+    environment:
+      PGDATA: '/var/lib/postgresql/data/pgdata'
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}

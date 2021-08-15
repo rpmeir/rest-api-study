@@ -1,0 +1,28 @@
+{
+  "name": "rest-api-study",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rpmeir/rest-api-study.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rpmeir/rest-api-study/issues"
+  },
+  "homepage": "https://github.com/rpmeir/rest-api-study#readme",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "jest": "^27.0.5",
+    "nodemon": "^2.0.12",
+    "pg-promise": "^10.10.2"
+  }
+}
